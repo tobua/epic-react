@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "start": "react-scripts start",
+    "build": "react-scripts build",
     "pack": "npm install --no-save $(npm pack .. | tail -1)"
   },
+  "homepage": "http://naminho.ch/epic-react",
   "dependencies": {
     "@types/jest": "24.0.23",
     "@types/node": "12.12.14",
