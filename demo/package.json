@@ -1,0 +1,35 @@
+{
+  "name": "epic-react-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "react-scripts start",
+    "pack": "npm install --no-save $(npm pack .. | tail -1)"
+  },
+  "dependencies": {
+    "@types/jest": "24.0.23",
+    "@types/node": "12.12.14",
+    "@types/react": "16.9.14",
+    "@types/react-dom": "16.9.4",
+    "epic-react": "^0.1.0",
+    "exmpl": "^1.0.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.2.0",
+    "typescript": "3.7.3"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
