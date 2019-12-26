@@ -3,7 +3,8 @@
     "jsx": "react",
     "esModuleInterop": true,
     "outDir": "build",
-    "declaration": true
+    "declaration": true,
+    "lib": ["DOM", "ES6"]
   },
   "include": ["index.ts"]
 }
