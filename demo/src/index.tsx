@@ -218,6 +218,29 @@ const App = () => {
         ]
       </p>
       <p>
+        As the third parameter you can pass an element which will be rendered in
+        case list is empty.
+      </p>
+      <pre>
+        <code>
+          list&lt;&#123; value: number }&gt;(
+          <br />
+          &nbsp;&nbsp;[],
+          <br />
+          &nbsp;&nbsp;ListElement,
+          <br />
+          &nbsp;&nbsp;&lt;span&gt;It's an empty list ;)&lt;/span&gt;
+          <br />)
+        </code>
+      </pre>
+      <p>
+        {list<{ value: number }>(
+          [],
+          ListElement,
+          <span>It's an empty list ;)</span>
+        )}
+      </p>
+      <p>
         An optional separator element can be inserted in between elements,
         similar to the join() function for regular Arrays.
       </p>

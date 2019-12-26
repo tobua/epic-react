@@ -46,12 +46,31 @@ test('list: approprite keys with multiple elements.', () => {
   expect((elements[2] as any)._fiber.key).toEqual('2');
 });
 
+test('list: renders null if list empty an no empty fallback provided.', () => {
+  let tree = create(<>{list<{ value: number }>([], ListElement)}</>);
+
+  const rendered = tree.toJSON();
+
+  expect(rendered).toEqual(create(null).toJSON());
+});
+
+test('list: renders null if list empty an no empty fallback provided.', () => {
+  let tree = create(
+    <>{list<{ value: number }>([], ListElement, <p>List is empty</p>)}</>
+  );
+
+  const rendered = tree.toJSON();
+
+  expect(rendered).toEqual(create(<p>List is empty</p>).toJSON());
+});
+
 test('list: separator will be added between elements with appropriate keys.', () => {
   let tree = create(
     <>
       {list<{ value: number }>(
         [{ value: 1 }, { value: 2 }, { value: 3 }],
         ListElement,
+        null,
         <span>,</span>
       )}
     </>

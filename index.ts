@@ -167,9 +167,15 @@ epic.done = _epic3.done;
 export const list = <TListElement>(
   list: TListElement[],
   component: React.FunctionComponent<TListElement>,
+  empty: JSX.Element = null,
   separator?: JSX.Element
 ) => {
   let elements: React.FunctionComponentElement<any>[] = [];
+
+  if (!list.length) {
+    return empty;
+  }
+
   list.forEach((item: TListElement, index) => {
     elements.push(
       React.createElement(component, {
