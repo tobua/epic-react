@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "outDir": "build",
+    "declaration": true
+  },
+  "include": ["index.ts"]
 }

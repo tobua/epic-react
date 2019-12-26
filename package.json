@@ -2,7 +2,7 @@
   "name": "epic-react",
   "version": "0.1.0",
   "description": "Not epic but handy helpers for conditional React rendering.",
-  "main": "build/epic-react.js",
+  "main": "build/index.js",
   "source": "src/index.ts",
   "typings": "build/index.d.ts",
   "repository": "github:naminho/epic-react",
@@ -12,7 +12,7 @@
     "node": ">= 10"
   },
   "scripts": {
-    "build": "microbundle -i index.ts --external React",
+    "build": "tsc",
     "test": "jest",
     "format": "prettier --write '**/*.{ts,tsx}'"
   },
@@ -31,16 +31,15 @@
     "build"
   ],
   "devDependencies": {
-    "@types/jest": "^24.0.23",
-    "@types/react": "^16.9.15",
+    "@types/jest": "^24.0.25",
+    "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/react-test-renderer": "^16.9.1",
     "jest": "^24.9.0",
-    "microbundle": "^0.11.0",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-test-renderer": "^16.12.0",
     "ts-jest": "^24.2.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.4"
   }
 }
