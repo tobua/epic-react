@@ -1,3 +1,3 @@
-import React from 'react';
+import React from 'react'
 
-export default () => <p>lazily loaded</p>;
+export default () => <p>lazily loaded</p>
