@@ -2,23 +2,26 @@
   "name": "epic-react-demo",
   "version": "1.0.0",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "pack": "npm install --no-save $(npm pack .. | tail -1)"
+    "start": "synec && react-scripts start",
+    "build": "synec && react-scripts build"
   },
   "homepage": "http://naminho.ch/epic-react",
   "dependencies": {
-    "@types/jest": "24.0.23",
-    "@types/node": "12.12.14",
-    "@types/react": "16.9.14",
-    "@types/react-dom": "16.9.4",
+    "@types/jest": "26.0.10",
+    "@types/node": "14.6.1",
+    "@types/react": "16.9.48",
+    "@types/react-dom": "16.9.8",
     "epic-react": "^0.1.1",
-    "exmpl": "^1.0.2",
-    "react": "^16.12.0",
-    "react-app-polyfill": "^1.0.5",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.2.0",
-    "typescript": "3.7.3"
+    "exmpl": "^1.0.3",
+    "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.3",
+    "synec": "^0.1.1",
+    "typescript": "4.0.2"
+  },
+  "localDependencies": {
+    "epic-react": ".."
   },
   "eslintConfig": {
     "extends": "react-app"

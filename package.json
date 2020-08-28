@@ -2,48 +2,55 @@
   "name": "epic-react",
   "version": "0.1.1",
   "description": "Not epic but handy helpers for conditional React rendering.",
-  "main": "dist/index.js",
-  "source": "index.ts",
-  "typings": "dist/index.d.ts",
   "repository": "github:tobua/epic-react",
   "license": "MIT",
   "author": "Matthias Giger",
+  "main": "dist/index.js",
+  "source": "index.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "watch": "padua watch",
     "build": "padua build",
     "lint": "padua lint",
+    "publish": "padua publish",
     "test": "padua test",
-    "publish": "padua publish"
-  },
-  "peerDependencies": {
-    "react": "^16.13.1"
-  },
-  "devDependencies": {
-    "@types/react": "^16.9.44",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-test-renderer": "^16.9.2",
-    "padua": "0.0.0",
-    "react": "^16.13.1",
-    "react-test-renderer": "^16.13.1"
-  },
-  "engines": {
-    "node": ">= 13.2.0"
+    "update": "padua update",
+    "watch": "padua watch"
   },
   "prettier": "padua/configuration/.prettierrc.json",
   "eslintConfig": {
     "extends": "./node_modules/padua/configuration/eslint.cjs"
   },
   "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
     "globals": {
       "ts-jest": {
         "tsConfig": "./node_modules/padua/configuration/tsconfig.json"
       }
+    },
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.jsx?$": [
+        "babel-jest",
+        {
+          "configFile": "./node_modules/padua/configuration/.babelrc"
+        }
+      ]
     }
   },
-  "files": [
-    "dist"
-  ]
+  "devDependencies": {
+    "@types/react": "^16.9.48",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-test-renderer": "^16.9.3",
+    "padua": "^0.0.6",
+    "react": "^16.13.1",
+    "react-test-renderer": "^16.13.1"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
+  "engines": {
+    "node": ">= 13.2.0"
+  }
 }
