@@ -1,5 +1,5 @@
-import React from 'react'
-import { create } from 'react-test-renderer'
+import React, { useState } from 'react'
+import { create, act } from 'react-test-renderer'
 import { when, not, random } from '../index'
 
 const first = () => <p>first</p>
@@ -42,6 +42,59 @@ test('when: renders otherwise if condition is falsy.', () => {
   expect(markup).toEqual(secondElement)
   markup = create(when(0, first, second)).toJSON()
   expect(markup).toEqual(secondElement)
+})
+
+test('when: component is only initialized once.', () => {
+  let setCondition
+
+  let firstRenders = 0
+  const FirstComponent  = () => {
+    ++firstRenders
+    return <p>first</p>
+  }
+
+  let secondRenders = 0
+  const SecondComponent  = () => {
+    ++secondRenders
+    return <p>first</p>
+  }
+
+  let wrapperRenders = 0
+  let Wrapper = () => {
+    const state = useState(true)
+    setCondition = state[1]
+    ++wrapperRenders
+    return when(state[0], FirstComponent, SecondComponent)
+  }
+
+  create(<Wrapper />).toJSON()
+  expect(wrapperRenders).toEqual(1)
+  expect(firstRenders).toEqual(1)
+  expect(secondRenders).toEqual(0)
+
+  act(() => {
+    setCondition(false)
+  })
+
+  expect(wrapperRenders).toEqual(2)
+  expect(firstRenders).toEqual(1)
+  expect(secondRenders).toEqual(1)
+
+  act(() => {
+    setCondition(true)
+  })
+
+  expect(wrapperRenders).toEqual(3)
+  expect(firstRenders).toEqual(2)
+  expect(secondRenders).toEqual(1)
+
+  act(() => {
+    setCondition(true)
+  })
+
+  expect(wrapperRenders).toEqual(4)
+  expect(firstRenders).toEqual(2)
+  expect(secondRenders).toEqual(1)
 })
 
 test('not: renders only if condition is falsy.', () => {
