@@ -14,14 +14,25 @@
   "scripts": {
     "build": "padua build",
     "lint": "padua lint",
-    "publish": "padua publish",
+    "release": "padua release",
     "test": "padua test",
     "update": "padua update",
     "watch": "padua watch"
   },
   "prettier": "padua/configuration/.prettierrc.json",
   "eslintConfig": {
-    "extends": "./node_modules/padua/configuration/eslint.cjs"
+    "extends": "./node_modules/padua/configuration/eslint.cjs",
+    "rules": {
+      "no-console": 0,
+      "no-underscore-dangle": [
+        "error",
+        {
+          "allow": [
+            "_fiber"
+          ]
+        }
+      ]
+    }
   },
   "jest": {
     "globals": {
@@ -40,10 +51,10 @@
     }
   },
   "devDependencies": {
-    "@types/react": "^16.9.48",
+    "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
     "@types/react-test-renderer": "^16.9.3",
-    "padua": "^0.0.6",
+    "padua": "^0.0.8",
     "react": "^16.13.1",
     "react-test-renderer": "^16.13.1"
   },

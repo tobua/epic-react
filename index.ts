@@ -50,9 +50,9 @@ export function until<TDone, TFail = {}>(
   promise: Promise<TDone>,
   after: (data: TDone) => JSX.Element,
   loading?: JSX.Element,
-  error?: (error: TFail) => JSX.Element
+  error?: (_error: TFail) => JSX.Element
 ) {
-  const Component = function () {
+  function Component() {
     const [result, setResult] = React.useState<{
       done: TDone | false
       fail: TFail | false
@@ -63,9 +63,9 @@ export function until<TDone, TFail = {}>(
 
     React.useEffect(() => {
       promise
-        .then((result: TDone) =>
+        .then((_result: TDone) =>
           setResult({
-            done: result,
+            done: _result,
             fail: false,
           })
         )
@@ -101,42 +101,45 @@ interface EpicConditions {
   fallback: any
 }
 
-let _conditions: EpicConditions
-let _result: {
+let conditions: EpicConditions
+let result: {
   loading: React.FunctionComponent | null
   error: React.FunctionComponent | null
   fallback: React.FunctionComponent | null
 } = { loading: null, error: null, fallback: null }
-let _epic = {
-  loading: function (element: React.FunctionComponent, condition?: any) {
+const epicObject = {
+  loading: function Loading(element: React.FunctionComponent, condition?: any) {
     if (
-      (_conditions && toBoolean(_conditions.loading)) ||
+      (conditions && toBoolean(conditions.loading)) ||
       (condition !== undefined && toBoolean(condition))
     ) {
-      _result.loading = element
+      result.loading = element
     }
 
-    return _epic
+    return epicObject
   },
-  error: function (element: React.FunctionComponent, condition?: any) {
+  error: function Error(element: React.FunctionComponent, condition?: any) {
     if (
-      (_conditions && toBoolean(_conditions.error)) ||
+      (conditions && toBoolean(conditions.error)) ||
       (condition !== undefined && toBoolean(condition))
     ) {
-      _result.error = element
+      result.error = element
     }
 
-    return _epic
+    return epicObject
   },
-  fallback: function (element: React.FunctionComponent, condition?: any) {
+  fallback: function Fallback(
+    element: React.FunctionComponent,
+    condition?: any
+  ) {
     if (
-      (_conditions && toBoolean(_conditions.fallback)) ||
+      (conditions && toBoolean(conditions.fallback)) ||
       (condition !== undefined && toBoolean(condition))
     ) {
-      _result.fallback = element
+      result.fallback = element
     }
 
-    return _epic
+    return epicObject
   },
   done: (done: React.FunctionComponent) => {
     if (!done) {
@@ -144,47 +147,51 @@ let _epic = {
     }
 
     // Defines order of elements to render before done.
-    const result = _result.loading || _result.error || _result.fallback || done
+    const toRender = result.loading || result.error || result.fallback || done
     // Reset results for next epic use.
-    _result = { loading: null, error: null, fallback: null }
-    return React.createElement(result, null)
+    result = { loading: null, error: null, fallback: null }
+    return React.createElement(toRender, null)
   },
 }
 
 // Epic constructor function.
-export const epic: ((conditions: EpicConditions) => typeof _epic) &
-  typeof _epic = function (this: any, conditions: EpicConditions) {
-  _conditions = conditions
-  return _epic
+export const epic: ((newConditions: EpicConditions) => typeof epicObject) &
+  typeof epicObject = function Epic(this: any, newConditions: EpicConditions) {
+  conditions = newConditions
+  return epicObject
 }
 
-epic.loading = _epic.loading
-epic.error = _epic.error
-epic.fallback = _epic.fallback
-epic.done = _epic.done
+epic.loading = epicObject.loading
+epic.error = epicObject.error
+epic.fallback = epicObject.fallback
+epic.done = epicObject.done
 
 export const list = <TListElement>(
-  list: TListElement[],
+  listElements: TListElement[],
   component: React.FunctionComponent<TListElement>,
   empty: JSX.Element = null,
   separator?: JSX.Element
 ) => {
-  let elements: React.FunctionComponentElement<any>[] = []
+  const elements: React.FunctionComponentElement<any>[] = []
 
-  if (!list.length) {
+  if (!listElements.length) {
     return empty
   }
 
-  list.forEach((item: TListElement, index) => {
+  listElements.forEach((item: TListElement, index) => {
     elements.push(
       React.createElement(component, {
+        // eslint-disable-next-line react/no-array-index-key
         key: index,
         ...item,
       })
     )
 
-    if (separator && index !== list.length - 1) {
-      elements.push(React.cloneElement(separator, { key: list.length + index }))
+    if (separator && index !== listElements.length - 1) {
+      elements.push(
+        // eslint-disable-next-line react/no-array-index-key
+        React.cloneElement(separator, { key: listElements.length + index })
+      )
     }
   })
 

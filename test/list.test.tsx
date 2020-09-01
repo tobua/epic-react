@@ -29,7 +29,7 @@ test('list: works with a single and multiple elements.', () => {
 })
 
 test('list: approprite keys with multiple elements.', () => {
-  let tree = create(
+  const tree = create(
     <>
       {list<{ value: number }>(
         [{ value: 1 }, { value: 2 }, { value: 3 }],
@@ -37,7 +37,7 @@ test('list: approprite keys with multiple elements.', () => {
       )}
     </>
   )
-  let elements = tree.root.findAllByType(ListElement)
+  const elements = tree.root.findAllByType(ListElement)
 
   expect(elements.length).toEqual(3)
 
@@ -47,7 +47,7 @@ test('list: approprite keys with multiple elements.', () => {
 })
 
 test('list: renders null if list empty an no empty fallback provided.', () => {
-  let tree = create(<>{list<{ value: number }>([], ListElement)}</>)
+  const tree = create(<>{list<{ value: number }>([], ListElement)}</>)
 
   const rendered = tree.toJSON()
 
@@ -55,7 +55,7 @@ test('list: renders null if list empty an no empty fallback provided.', () => {
 })
 
 test('list: renders null if list empty an no empty fallback provided.', () => {
-  let tree = create(
+  const tree = create(
     <>{list<{ value: number }>([], ListElement, <p>List is empty</p>)}</>
   )
 
@@ -65,7 +65,7 @@ test('list: renders null if list empty an no empty fallback provided.', () => {
 })
 
 test('list: separator will be added between elements with appropriate keys.', () => {
-  let tree = create(
+  const tree = create(
     <>
       {list<{ value: number }>(
         [{ value: 1 }, { value: 2 }, { value: 3 }],
@@ -75,7 +75,7 @@ test('list: separator will be added between elements with appropriate keys.', ()
       )}
     </>
   )
-  let elements = tree.root.findAll(
+  const elements = tree.root.findAll(
     (instance) => (instance as any)._fiber.key !== null
   )
 

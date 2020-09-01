@@ -15,7 +15,7 @@ const lazyRendered = create(<Lazy />).toJSON()
 const regularError = console.error
 console.error = (...args: any[]) => {
   if (args[0].includes('react-wrap-tests-with-act')) {
-    return null
+    return
   }
   regularError.apply(this, args)
 }
@@ -36,6 +36,7 @@ test('until: shows loader first and element with props passed afterwards.', asyn
 
 test('until: shows loader first and fails when promise throws error.', async () => {
   const promise = new Promise<string>((done, fail) =>
+    // eslint-disable-next-line prefer-promise-reject-errors
     setTimeout(() => fail('error'), 10)
   )
   const tree = create(until(promise, first, loader, error))

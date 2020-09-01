@@ -48,23 +48,23 @@ test('when: component is only initialized once.', () => {
   let setCondition
 
   let firstRenders = 0
-  const FirstComponent  = () => {
-    ++firstRenders
+  const FirstComponent = () => {
+    firstRenders += 1
     return <p>first</p>
   }
 
   let secondRenders = 0
-  const SecondComponent  = () => {
-    ++secondRenders
+  const SecondComponent = () => {
+    secondRenders += 1
     return <p>first</p>
   }
 
   let wrapperRenders = 0
-  let Wrapper = () => {
-    const state = useState(true)
-    setCondition = state[1]
-    ++wrapperRenders
-    return when(state[0], FirstComponent, SecondComponent)
+  const Wrapper = () => {
+    let condition
+    ;[condition, setCondition] = useState(true)
+    wrapperRenders += 1
+    return when(condition, FirstComponent, SecondComponent)
   }
 
   create(<Wrapper />).toJSON()

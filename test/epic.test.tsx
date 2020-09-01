@@ -31,19 +31,19 @@ test('epic: order of elements is correct.', () => {
     .fallback(fallback, true)
     .done(done)
   expect(markup).toEqual(loadingElement)
-  markup = markup = epic
+  markup = epic
     .loading(loading, false)
     .error(error, true)
     .fallback(fallback, true)
     .done(done)
   expect(markup).toEqual(errorElement)
-  markup = markup = epic
+  markup = epic
     .loading(loading, false)
     .error(error, false)
     .fallback(fallback, true)
     .done(done)
   expect(markup).toEqual(fallbackElement)
-  markup = markup = epic
+  markup = epic
     .loading(loading, false)
     .error(error, false)
     .fallback(fallback, false)
