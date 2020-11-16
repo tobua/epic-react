@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/tobua/epic-react/compare/v0.1.3...v0.1.4) (2020-11-16)
+
+
+### Features
+
+* **event:** add event handlers and switch demo to papua ([0974a28](https://github.com/tobua/epic-react/commit/0974a28dfdd37db6fb9a1e4e55f9c29e59142e72))
+
 ### [0.1.3](https://github.com/tobua/epic-react/compare/v0.1.2...v0.1.3) (2020-09-01)
 
 ### 0.1.2 (2020-08-28)

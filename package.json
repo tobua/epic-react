@@ -1,7 +1,7 @@
 {
   "name": "epic-react",
   "description": "Not epic but handy helpers for conditional React rendering.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "repository": "github:tobua/epic-react",
   "license": "MIT",
   "author": "Matthias Giger",
@@ -17,7 +17,8 @@
   "source": "index.ts",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "index.ts"
   ],
   "devDependencies": {
     "@types/react": "^16.9.56",
