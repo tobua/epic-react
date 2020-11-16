@@ -218,3 +218,15 @@ export function random(...components: React.FunctionComponent<any>[]) {
 
   return React.createElement(components[index], null)
 }
+
+export const onEnter = (callback: (event: Event) => void) => (event: any) => {
+  if (event.key === 'Enter') {
+    callback(event)
+  }
+}
+
+export const onEscape = (callback: (event: Event) => void) => (event: any) => {
+  if (event.key === 'Escape') {
+    callback(event)
+  }
+}

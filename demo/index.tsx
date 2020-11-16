@@ -1,10 +1,19 @@
-import 'react-app-polyfill/ie11';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'exmpl/dist/styles.css';
-import { not, when, epic, until, list, random } from 'epic-react';
+import 'react-app-polyfill/ie11'
+import React from 'react'
+import { render } from 'react-dom'
+import 'exmpl/dist/styles.css'
+import {
+  not,
+  when,
+  epic,
+  until,
+  list,
+  random,
+  onEnter,
+  onEscape,
+} from 'epic-react'
 
-const ListElement = ({ value }: { value: number }) => <span>{value}</span>;
+const ListElement = ({ value }: { value: number }) => <span>{value}</span>
 
 const App = () => {
   return (
@@ -19,7 +28,7 @@ const App = () => {
         <p>will appear</p>
       ))}
       <pre>
-        <code>{'not(true, () => <p>won\'t appear</p>)'}</code>
+        <code>{"not(true, () => <p>won't appear</p>)"}</code>
       </pre>
       {not(true, () => (
         <p>won't appear</p>
@@ -99,7 +108,7 @@ const App = () => {
       {epic({
         loading: false,
         error: false,
-        fallback: false
+        fallback: false,
       })
         .loading(() => <p>Loading...</p>)
         .error(() => <p>Error...</p>)
@@ -139,8 +148,10 @@ const App = () => {
         </code>
       </pre>
       {until<string, null>(
-        new Promise<string>(done => setTimeout(() => done('resolved!'), 3000)),
-        result => (
+        new Promise<string>((done) =>
+          setTimeout(() => done('resolved!'), 3000)
+        ),
+        (result) => (
           <p>{result}</p>
         ),
         <p>loading...</p>
@@ -166,11 +177,11 @@ const App = () => {
         new Promise<string>((done, fail) =>
           setTimeout(() => fail('rejected...'), 3000)
         ),
-        result => (
+        (result) => (
           <p>{result}</p>
         ),
         <p>loading...</p>,
-        error => (
+        (error) => (
           <p>{error}</p>
         )
       )}
@@ -186,7 +197,7 @@ const App = () => {
       </pre>
       {until(
         import('./lazy'),
-        result => (
+        (result) => (
           <result.default />
         ),
         <p>loading...</p>
@@ -206,7 +217,8 @@ const App = () => {
           {'  [{ value: 1 }, { value: 2 }, { value: 3 }],'}
           <br />
           {'  ListElement'}
-          <br />{')'}
+          <br />
+          {')'}
         </code>
       </pre>
       <p>
@@ -253,7 +265,8 @@ const App = () => {
           {'  ListElement,'}
           <br />
           {'  <span>,</span>'}
-          <br />{')'}
+          <br />
+          {')'}
         </code>
       </pre>
       <p>
@@ -265,8 +278,21 @@ const App = () => {
         )}
         ]
       </p>
+      <h2>Event Handlers</h2>
+      <p>Shortcuts to do something when a certain key is pressed.</p>
+      <code>
+        <pre>{`<input
+  onKeyDown={onEnter(() => console.log('Enter was pressed!'))}
+  onKeyUp={onEscape(() => console.log('Escape pressed.'))}
+/>`}</pre>
+      </code>
+      <input
+        onKeyDown={onEnter(() => console.log('Enter was pressed!'))}
+        onKeyUp={onEscape(() => console.log('Escape pressed.'))}
+        defaultValue="Press keys in here"
+      />
     </div>
-  );
-};
+  )
+}
 
-ReactDOM.render(<App />, document.getElementById('root'));
+render(<App />, document.body)

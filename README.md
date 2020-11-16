@@ -9,21 +9,21 @@ Not epic but handy helpers for conditional React rendering. Functional utilities
 `npm install react epic-react`
 
 ```tsx
-import React from 'react';
-import { when } from 'epic-react';
+import React from 'react'
+import { when } from 'epic-react'
 
 export const DaytimeTheme = (time: number) =>
   when(
     time > 6 && time < 18,
     () => <Daylight />,
     () => <Nighttime />
-  );
+  )
 ```
 
 ## Available Methods
 
 ```tsx
-import { not, when, epic, until, list, random } from 'epic-react';
+import { not, when, epic, until, list, random } from 'epic-react'
 ```
 
 ### not
@@ -32,7 +32,7 @@ If the provided condition is true nothing will be rendered.
 
 ```tsx
 export const CartButton = (stock: number) =>
-  not(stock === 0, <Button onClick={Store.addToCart}>Buy</Button>);
+  not(stock === 0, <Button onClick={Store.addToCart}>Buy</Button>)
 ```
 
 ### when
@@ -45,7 +45,7 @@ export const DaytimeTheme = (time: number) =>
     time > 6 && time < 18,
     () => <Daylight />,
     () => <Nighttime /> // Optional
-  );
+  )
 ```
 
 ### <a name="epic"></a>epic
@@ -58,18 +58,18 @@ epic
   .loading(() => <p>Loading...</p>, false)
   .error(() => <p>Error...</p>, false)
   .fallback(() => <p>Fallback...</p>, false)
-  .done(() => <p>Epic done</p>);
+  .done(() => <p>Epic done</p>)
 
 // Usage as a function: specifying conditions first.
 epic({
   loading: false,
   error: false,
-  fallback: false
+  fallback: false,
 })
   .loading(() => <p>Loading...</p>)
   .error(() => <p>Error...</p>)
   .fallback(() => <p>Fallback...</p>)
-  .done(() => <p>Epic done</p>);
+  .done(() => <p>Epic done</p>)
 ```
 
 The second option is especially handy if you already have an object with the conditions available or can create a matching state.
@@ -80,10 +80,10 @@ Asynchronous rendering depending on the state of a Promise.
 
 ```tsx
 until<string, null>(
-  new Promise<string>(done => setTimeout(() => done('resolved!'), 3000)),
-  result => <p>{result}</p>,
+  new Promise<string>((done) => setTimeout(() => done('resolved!'), 3000)),
+  (result) => <p>{result}</p>,
   <p>loading...</p>
-);
+)
 ```
 
 If the Promise is rejected an optional error handler will be rendered.
@@ -106,22 +106,19 @@ until<string, string>(
 ### list
 
 ```tsx
-const ListElement = ({ value }: { value: number }) => <span>{value}</span>;
+const ListElement = ({ value }: { value: number }) => <span>{value}</span>
 ```
 
 This epic makes rendering lists quicker.
 
 ```tsx
-list<{ value: number }>(
-  [{ value: 1 }, { value: 2 }, { value: 3 }],
-  ListElement
-);
+list<{ value: number }>([{ value: 1 }, { value: 2 }, { value: 3 }], ListElement)
 ```
 
 As the third parameter you can pass an element which will be rendered in case list is empty.
 
 ```tsx
-list<{ value: number }>([], ListElement, <span>It's an empty list ;)</span>);
+list<{ value: number }>([], ListElement, <span>It's an empty list ;)</span>)
 ```
 
 An optional separator element can be inserted in between elements, similar to the join() function for regular Arrays.
@@ -143,7 +140,7 @@ Randomly picks a component from the list of arguments.
 random(
   () => <p>first</p>,
   () => <p>second</p>
-);
+)
 ```
 
 ## Comparison with other Abstractions
@@ -154,17 +151,17 @@ Simply writing all the logic yourself works just fine. These epics however have 
 
 ```tsx
 // Vanilla JS
-export const AsyncFetchedData = data => {
+export const AsyncFetchedData = (data) => {
   if (data.loading) {
-    return <Loading />;
+    return <Loading />
   }
 
   if (data.error) {
-    return <Error />;
+    return <Error />
   }
 
-  return <Data data={data.result} />;
-};
+  return <Data data={data.result} />
+}
 ```
 
 ```tsx
@@ -178,26 +175,61 @@ export const AsyncFetchedData = (data) => epic
 ### Higher Order Components
 
 ```tsx
-import { Suspense } from 'react';
+import { Suspense } from 'react'
 
-const LazyComponent = React.lazy(() => import('./ProfilePage'));
+const LazyComponent = React.lazy(() => import('./ProfilePage'))
 
 return (
   <Suspense fallback={<div>Loading...</div>}>
     <LazyComponent />
   </Suspense>
-);
+)
 ```
 
 ```tsx
-import { until } from 'epic-react';
+import { until } from 'epic-react'
 
-return until(import('./lazy'), result => <result.default />, <p>Loading...</p>);
+return until(
+  import('./lazy'),
+  (result) => <result.default />,
+  <p>Loading...</p>
+)
 ```
 
 Suspense (HOC): 4 Lines of Code
 
 until (react-epic): 1 Line of Code 🤓
+
+## Event Handlers
+
+Shortcuts to do something when a certain key is pressed. To be used with `onKeyDown`, `onKeyPress` or `onKeyUp`.
+
+```tsx
+import { onEnter, onEscape } from 'epic-react'
+```
+
+### onEnter
+
+```tsx
+<input onKeyUp={onEnter((event) => submit())} />
+```
+
+### onEscape
+
+```tsx
+<input onKeyDown={onEscape((event) => close())} />
+```
+
+### Several Keys
+
+```tsx
+<input
+  onKeyPress={(event) => {
+    onEnter(() => submit())(event)
+    onEscape((event) => close(event))(event)
+  }}
+/>
+```
 
 <br />
 <br />

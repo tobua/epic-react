@@ -1,43 +1,16 @@
 {
-  "name": "epic-react-demo",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "synec && react-scripts start",
-    "build": "synec && react-scripts build"
-  },
-  "homepage": "http://naminho.ch/epic-react",
   "dependencies": {
-    "@types/jest": "26.0.12",
-    "@types/node": "14.6.2",
-    "@types/react": "16.9.49",
-    "@types/react-dom": "16.9.8",
-    "epic-react": "^0.1.2",
+    "@types/jest": "26.0.15",
+    "@types/node": "14.14.7",
+    "@types/react": "16.9.56",
+    "@types/react-dom": "16.9.9",
     "exmpl": "^1.0.3",
-    "react": "^16.13.1",
-    "react-app-polyfill": "^1.0.6",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
-    "synec": "^0.1.4",
-    "typescript": "4.0.2"
+    "papua": "^0.1.4",
+    "react": "^17.0.1",
+    "react-app-polyfill": "^2.0.0",
+    "react-dom": "^17.0.1"
   },
   "localDependencies": {
     "epic-react": ".."
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all",
-      "ie 11"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version",
-      "ie 11"
-    ]
   }
 }
