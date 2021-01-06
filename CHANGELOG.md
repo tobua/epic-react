@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/tobua/epic-react/compare/v0.1.4...v0.2.0) (2021-01-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pkg:** published as ES Module (no CommonJS fallback)
+
+### Features
+
+* **pkg:** distribute as ES Module, update and remove React < 17 warning ([70ef9b0](https://github.com/tobua/epic-react/commit/70ef9b08641940c4bfeadf632cb3fc9151a722af))
+
 ### [0.1.4](https://github.com/tobua/epic-react/compare/v0.1.3...v0.1.4) (2020-11-16)
 
 
