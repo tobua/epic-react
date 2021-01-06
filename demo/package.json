@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "@types/jest": "26.0.15",
-    "@types/node": "14.14.7",
-    "@types/react": "16.9.56",
-    "@types/react-dom": "16.9.9",
+    "@types/jest": "26.0.19",
+    "@types/node": "14.14.20",
+    "@types/react": "17.0.0",
+    "@types/react-dom": "17.0.0",
     "exmpl": "^1.0.3",
-    "papua": "^0.1.5",
+    "papua": "^0.1.12",
     "react": "^17.0.1",
     "react-app-polyfill": "^2.0.0",
     "react-dom": "^17.0.1"

@@ -1,10 +1,11 @@
-import * as React from 'react'
-
-if (!React.useState) {
-  console.warn(
-    'epic-react: Hooks required, please upgrade react version to at least 16.0.'
-  )
-}
+import {
+  createElement,
+  FunctionComponent,
+  useState,
+  useEffect,
+  FunctionComponentElement,
+  cloneElement,
+} from 'react'
 
 // Casts various types to boolean.
 const toBoolean = (value: any) => {
@@ -26,23 +27,23 @@ const toBoolean = (value: any) => {
 // Conditionally render markup.
 export function when(
   condition: any,
-  content: React.FunctionComponent,
-  otherwise?: React.FunctionComponent
+  content: FunctionComponent,
+  otherwise?: FunctionComponent
 ) {
   if (!toBoolean(condition)) {
-    return (otherwise && React.createElement(otherwise, null)) || null
+    return (otherwise && createElement(otherwise, null)) || null
   }
 
-  return React.createElement(content, null)
+  return createElement(content, null)
 }
 
 // Render only if not condition.
-export function not(condition: any, content: React.FunctionComponent) {
+export function not(condition: any, content: FunctionComponent) {
   if (toBoolean(condition)) {
     return null
   }
 
-  return React.createElement(content, null)
+  return createElement(content, null)
 }
 
 // Renders content after promise resolved, with optional loader and error elements.
@@ -53,7 +54,7 @@ export function until<TDone, TFail = {}>(
   error?: (_error: TFail) => JSX.Element
 ) {
   function Component() {
-    const [result, setResult] = React.useState<{
+    const [result, setResult] = useState<{
       done: TDone | false
       fail: TFail | false
     }>({
@@ -61,7 +62,7 @@ export function until<TDone, TFail = {}>(
       fail: false,
     })
 
-    React.useEffect(() => {
+    useEffect(() => {
       promise
         .then((_result: TDone) =>
           setResult({
@@ -92,7 +93,7 @@ export function until<TDone, TFail = {}>(
     return null
   }
 
-  return React.createElement(Component, null)
+  return createElement(Component, null)
 }
 
 interface EpicConditions {
@@ -103,12 +104,12 @@ interface EpicConditions {
 
 let conditions: EpicConditions
 let result: {
-  loading: React.FunctionComponent | null
-  error: React.FunctionComponent | null
-  fallback: React.FunctionComponent | null
+  loading: FunctionComponent | null
+  error: FunctionComponent | null
+  fallback: FunctionComponent | null
 } = { loading: null, error: null, fallback: null }
 const epicObject = {
-  loading: function Loading(element: React.FunctionComponent, condition?: any) {
+  loading: function Loading(element: FunctionComponent, condition?: any) {
     if (
       (conditions && toBoolean(conditions.loading)) ||
       (condition !== undefined && toBoolean(condition))
@@ -118,7 +119,7 @@ const epicObject = {
 
     return epicObject
   },
-  error: function Error(element: React.FunctionComponent, condition?: any) {
+  error: function Error(element: FunctionComponent, condition?: any) {
     if (
       (conditions && toBoolean(conditions.error)) ||
       (condition !== undefined && toBoolean(condition))
@@ -128,10 +129,7 @@ const epicObject = {
 
     return epicObject
   },
-  fallback: function Fallback(
-    element: React.FunctionComponent,
-    condition?: any
-  ) {
+  fallback: function Fallback(element: FunctionComponent, condition?: any) {
     if (
       (conditions && toBoolean(conditions.fallback)) ||
       (condition !== undefined && toBoolean(condition))
@@ -141,7 +139,7 @@ const epicObject = {
 
     return epicObject
   },
-  done: (done: React.FunctionComponent) => {
+  done: (done: FunctionComponent) => {
     if (!done) {
       return null
     }
@@ -150,7 +148,7 @@ const epicObject = {
     const toRender = result.loading || result.error || result.fallback || done
     // Reset results for next epic use.
     result = { loading: null, error: null, fallback: null }
-    return React.createElement(toRender, null)
+    return createElement(toRender, null)
   },
 }
 
@@ -168,11 +166,11 @@ epic.done = epicObject.done
 
 export const list = <TListElement>(
   listElements: TListElement[],
-  component: React.FunctionComponent<TListElement>,
+  component: FunctionComponent<TListElement>,
   empty: JSX.Element = null,
   separator?: JSX.Element
 ) => {
-  const elements: React.FunctionComponentElement<any>[] = []
+  const elements: FunctionComponentElement<any>[] = []
 
   if (!listElements.length) {
     return empty
@@ -180,7 +178,7 @@ export const list = <TListElement>(
 
   listElements.forEach((item: TListElement, index) => {
     elements.push(
-      React.createElement(component, {
+      createElement(component, {
         // eslint-disable-next-line react/no-array-index-key
         key: index,
         ...item,
@@ -190,7 +188,7 @@ export const list = <TListElement>(
     if (separator && index !== listElements.length - 1) {
       elements.push(
         // eslint-disable-next-line react/no-array-index-key
-        React.cloneElement(separator, { key: listElements.length + index })
+        cloneElement(separator, { key: listElements.length + index })
       )
     }
   })
@@ -199,7 +197,7 @@ export const list = <TListElement>(
 }
 
 // Randomly pick a react component from the arguments list.
-export function random(...components: React.FunctionComponent<any>[]) {
+export function random(...components: FunctionComponent<any>[]) {
   // NOTE Array.isArray polyfill.
   if (!(Object.prototype.toString.call(components) === '[object Array]')) {
     console.warn('epic-react: Please provide an array of components.')
@@ -216,7 +214,7 @@ export function random(...components: React.FunctionComponent<any>[]) {
   // https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
   const index = Math.floor(Math.random() * components.length)
 
-  return React.createElement(components[index], null)
+  return createElement(components[index], null)
 }
 
 export const onEnter = (callback: (event: Event) => void) => (event: any) => {

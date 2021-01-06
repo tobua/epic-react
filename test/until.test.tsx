@@ -26,7 +26,7 @@ test('until: shows loader first and element with props passed afterwards.', asyn
   )
   const tree = create(until(promise, first, loader))
   expect(tree.toJSON()).toEqual(loaderRendered)
-  await new Promise((done) =>
+  await new Promise<void>((done) =>
     setTimeout(() => {
       expect(tree.toJSON()).toEqual(firstRenderedFinished)
       done()
@@ -41,7 +41,7 @@ test('until: shows loader first and fails when promise throws error.', async () 
   )
   const tree = create(until(promise, first, loader, error))
   expect(tree.toJSON()).toEqual(loaderRendered)
-  await new Promise((done) =>
+  await new Promise<void>((done) =>
     setTimeout(() => {
       expect(tree.toJSON()).toEqual(errorRenderedFinished)
       done()
@@ -60,7 +60,7 @@ test('until: renders lazy loaded components comparable to suspense.', async () =
 
   expect(tree.toJSON()).toEqual(loaderRendered)
 
-  await new Promise((done) =>
+  await new Promise<void>((done) =>
     setTimeout(() => {
       expect(tree.toJSON()).toEqual(lazyRendered)
       done()

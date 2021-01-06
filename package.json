@@ -14,6 +14,8 @@
     "react": "^17.0.1"
   },
   "main": "dist/index.js",
+  "module": "dist/index.js",
+  "sideEffects": false,
   "source": "index.ts",
   "types": "dist/index.d.ts",
   "files": [
@@ -21,10 +23,10 @@
     "index.ts"
   ],
   "devDependencies": {
-    "@types/react": "^16.9.56",
-    "@types/react-dom": "^16.9.9",
-    "@types/react-test-renderer": "^16.9.3",
-    "padua": "^0.1.4",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-test-renderer": "^17.0.0",
+    "padua": "^0.2.2",
     "react": "^17.0.1",
     "react-test-renderer": "^17.0.1"
   },
@@ -46,7 +48,7 @@
   "jest": {
     "globals": {
       "ts-jest": {
-        "tsConfig": "./node_modules/padua/configuration/tsconfig.json"
+        "tsconfig": "./tsconfig.json"
       }
     },
     "transform": {
