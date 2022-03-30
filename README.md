@@ -189,11 +189,7 @@ return (
 ```tsx
 import { until } from 'epic-react'
 
-return until(
-  import('./lazy'),
-  (result) => <result.default />,
-  <p>Loading...</p>
-)
+return until(import('./lazy'), (result) => <result.default />, <p>Loading...</p>)
 ```
 
 Suspense (HOC): 4 Lines of Code
@@ -234,5 +230,5 @@ import { onEnter, onEscape } from 'epic-react'
 <br />
 <br />
 <p align="center">
-  <img src="https://raw.githubusercontent.com/naminho/epic-react/master/logo.svg?sanitize=true" alt="epic-react" width="100%">
+  <img src="https://raw.githubusercontent.com/tobua/epic-react/main/logo.svg?sanitize=true" alt="epic-react" width="100%">
 </p>

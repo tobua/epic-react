@@ -25,11 +25,7 @@ const toBoolean = (value: any) => {
 }
 
 // Conditionally render markup.
-export function when(
-  condition: any,
-  content: FunctionComponent,
-  otherwise?: FunctionComponent
-) {
+export function when(condition: any, content: FunctionComponent, otherwise?: FunctionComponent) {
   if (!toBoolean(condition)) {
     return (otherwise && createElement(otherwise, null)) || null
   }
@@ -153,11 +149,11 @@ const epicObject = {
 }
 
 // Epic constructor function.
-export const epic: ((newConditions: EpicConditions) => typeof epicObject) &
-  typeof epicObject = function Epic(this: any, newConditions: EpicConditions) {
-  conditions = newConditions
-  return epicObject
-}
+export const epic: ((newConditions: EpicConditions) => typeof epicObject) & typeof epicObject =
+  function Epic(this: any, newConditions: EpicConditions) {
+    conditions = newConditions
+    return epicObject
+  }
 
 epic.loading = epicObject.loading
 epic.error = epicObject.error
@@ -176,6 +172,8 @@ export const list = <TListElement>(
     return empty
   }
 
+  console.log(separator)
+
   listElements.forEach((item: TListElement, index) => {
     elements.push(
       createElement(component, {
@@ -184,6 +182,8 @@ export const list = <TListElement>(
         ...item,
       })
     )
+
+    console.log(separator)
 
     if (separator && index !== listElements.length - 1) {
       elements.push(
@@ -205,9 +205,7 @@ export function random(...components: FunctionComponent<any>[]) {
   }
 
   if (components.length === 0) {
-    console.warn(
-      'epic-react: An empty Array was provided to random(...components).'
-    )
+    console.warn('epic-react: An empty Array was provided to random(...components).')
     return null
   }
 
