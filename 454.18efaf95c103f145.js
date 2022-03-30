@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[454],{2454:(e,n,s)=>{s.r(n),s.d(n,{default:()=>c});var u=s(5893);const c=function(){return(0,u.jsx)("p",{children:"Asynchronously loaded"})}}}]);
+//# sourceMappingURL=454.18efaf95c103f145.js.map
